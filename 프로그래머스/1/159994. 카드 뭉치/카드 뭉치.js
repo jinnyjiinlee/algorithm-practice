@@ -1,19 +1,15 @@
 function solution(cards1, cards2, goal) {
-    
     let arr = [...goal];
     
     goal.forEach((v) => {
-        console.log('v', v)
         if (v === cards1[0]) {
-            cards1.splice(0, 1);
-            arr.splice(0, 1);
-            console.log('1', arr)
+            cards1.shift();
+            arr.shift();
         } else if (v === cards2[0]) {
-            cards2.splice(0, 1);
-            arr.splice(0, 1);
-            console.log('2', arr)
+            cards2.shift();
+            arr.shift();
         } 
     });
      
-    return (arr.length === 0) ? "Yes" : "No";
+    return arr.length === 0 ? "Yes" : "No";
 }
