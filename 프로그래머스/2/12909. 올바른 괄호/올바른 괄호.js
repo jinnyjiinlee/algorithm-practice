@@ -1,12 +1,11 @@
 function solution(s){
-    let stack = [];
+    let count = 0;
     
-    if (s[0] === ')') return false;
-    
-    s.split('').forEach(v => {
-        if (v === '(') stack.push('(');
-        if (v === ')') stack.pop();
-    });
-    
-    return stack.length === 0 ? true : false ;
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === '(') count += 1;                        
+        if (s[i] === ')') count -= 1; 
+        if (count < 0) return false;
+    }
+
+    return count === 0 ? true : false;    
 }
