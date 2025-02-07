@@ -1,25 +1,22 @@
 function solution(participant, completion) {
-    // 1. 해시 테이블 생성
-    const obj = {};
+    let hash = {}
     
-   // 2. 참가자들의 이름을 해시 테이블에 추가
-    for (const p of participant) {
-        if(obj[p]) {
-            obj[p] += 1;
-        } else {
-            obj[p] = 1;
-        }
+    // hash테이블에 참여자들 이름 만들기 
+    for (let i of participant) {
+        hash[i] = 0;
     }
     
-    // 3. 완주한 선수들의 이름을 키로 하는 값을 1씩 감소
-    for (const c of completion) {
-        obj[c] -= 1;
+    // hash테이블에 참여자들 이름과 숫자 1 넣기
+    for (let i of participant) {
+        hash[i] += 1;
     }
     
-    // 4. 해시 테이블에 남아 있는 선수가 완주하지 못한 선수
-    for (const key in obj) {
-        if (obj[key] > 0) {
-            return key;
-        }
+    // 완주한 사람들에게는 숫자 -1 하기
+    for (let i of completion) {
+        if (hash[i] > 0) hash[i]--;    
+    }
+    
+    for (let k in hash) {
+        if (hash[k] > 0) return k; 
     }
 }
