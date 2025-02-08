@@ -1,14 +1,9 @@
 function solution(arr) {
-    let result = [];
+    let stack = [];
     
-    result.push(arr[0]);
-    arr.shift();
+    arr.forEach(v => {
+        if ((stack[stack.length - 1]) !== v) stack.push(v);       
+    })
     
-    for (let i = 0; i < arr.length; i++) {    
-        if (result[result.length - 1] !== arr[i]) {
-            result.push(arr[i]);
-        }
-    }
-     
-    return result;
+    return stack;
 }
