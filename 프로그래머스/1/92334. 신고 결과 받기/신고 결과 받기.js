@@ -1,55 +1,64 @@
 function solution(id_list, report, k) {
-    let answer = [];
-
-    // 유저별 신고한 사람을 저장할한다ㅏㅏ.
     let users = {};
+    
+    // users객체에 아이디와 빈배열 넣기
     id_list.forEach(id => {
-        users[id] = new Set(); 
+        users[id] = [];
     });
+    
+    // report로 id옆에 신고한 사람 목록 넣기
+    report.forEach(arr => {
+        arr = arr.split(' ');
+        let 신고한사람 = arr[0];
+        let 신고당한사람 = arr[1];
+        
+        // user객체 돌면서 넣기 
+        if(!users[신고한사람].includes(신고당한사람)) {
+            users[신고한사람].push(신고당한사람) 
+        }
+    })
 
-    // 신고 내역 저장하기.
-    report.forEach(v => {
-        let [신고한사람, 신고당한사람] = v.split(' ');
-        users[신고한사람].add(신고당한사람); 
-    });
-
-    // 신고당한 횟수 카운트 객체
-    let 퇴출대상 = {};
+    // 각멤버별로 신고당한 횟수 적기
+    let 신고당한카운트객체 = {};
+    
     id_list.forEach(id => {
-        퇴출대상[id] = 0;
-    });
-
-    // 각 신고된 유저의 신고 횟수 증가
-    for (let key in users) {
-        users[key].forEach(신고당한사람 => {
-            퇴출대상[신고당한사람]++;
-        });
-    }
-
-    // 정지된 유저 목록 찾기
-    let 정지된유저 = new Set();
-    for (let key in 퇴출대상) {
-        if (퇴출대상[key] >= k) {
-            정지된유저.add(key);
+        신고당한카운트객체[id] = 0;
+    })
+    
+    let 신고당한리스트 = Object.values(users).flat();
+    // 각 개체별 카운트
+    
+    신고당한리스트.forEach(id => {
+        신고당한카운트객체[id]++
+    })
+    
+    let 퇴출대상리스트 = [];
+    // 신고당한 카운트객체에서 value값이 k이상인 경우 key값을 퇴출 대상에 넣기
+    
+    for (let key in 신고당한카운트객체) {
+        if(신고당한카운트객체[key] >= k) {
+            퇴출대상리스트.push(key)
         }
     }
-
-    // 메일 발송 횟수 계산하기
-    let 메일결과 = {};
-    id_list.forEach(id => {
-        메일결과[id] = 0;
-    });
-
+    
+//     users객체에서 values값에 되출대상이 포함되어있는지 확인하고 포함되어있으면 1명당 + 1하고
+//     없으면 0
+    
+    let result = {};
+    
     for (let key in users) {
-        users[key].forEach(신고당한사람 => {
-            if (정지된유저.has(신고당한사람)) {
-                메일결과[key]++; // 정지된 유저 신고한 사람에게 메일 발송
-            }
-        });
+        result[key] = 0;
     }
-
-    // id_list 순서대로 결과 배열 만들기
-    answer = id_list.map(user => 메일결과[user]);
-
-    return answer;
+    
+    for (let key in users) {
+        // users[key] 의 값에 퇴출대상 리스트가 있으면?
+        for (let i = 0; i < users[key].length; i++) {
+            if (퇴출대상리스트.includes(users[key][i])) {
+                result[key]++
+            }   
+        }
+    }
+    
+    
+    return Object.values(result);
 }
