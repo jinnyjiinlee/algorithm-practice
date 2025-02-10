@@ -1,11 +1,20 @@
+
+
 function solution(sizes) {
-    let w = [];
-    let h = [];
+    for (let i = 0; i < sizes.length; i++) {
+        sizes[i].sort((a, b) => b - a);
+    }
     
-    sizes.map((v, i) => {
-        w[i] = Math.max(...v);
-        h[i] = Math.min(...v);
+    let 가로 = [];
+    let 세로 = [];
+    
+    sizes.forEach(arr => {
+        가로.push(arr[0]);
+        세로.push(arr[1]);
     })
     
-    return Math.max(...w) * Math.max(...h);
+    let a = Math.max(...가로)
+    let b = Math.max(...세로)
+    
+    return a * b;
 }
