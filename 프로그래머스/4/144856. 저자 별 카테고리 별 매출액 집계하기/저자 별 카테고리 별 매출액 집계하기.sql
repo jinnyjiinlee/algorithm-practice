@@ -1,10 +1,8 @@
 SELECT  
-    *
-    , COUNT(*)
-#     B.AUTHOR_ID 
-#     , A.AUTHOR_NAME 
-#     , B.CATEGORY 
-#     , B.PRICE * COUNT(BS.SALES) AS TOTAL_SALES 
+    B.AUTHOR_ID 
+    , A.AUTHOR_NAME 
+    , B.CATEGORY 
+    , B.PRICE * COUNT(BS.SALES) AS TOTAL_SALES 
     
 FROM BOOK B
 
@@ -16,3 +14,20 @@ WHERE DATE_FORMAT(BS.SALES_DATE, '%Y-%m') = '2022-01 '
 GROUP BY A.AUTHOR_NAME, B.CATEGORY
 
 ORDER BY B.AUTHOR_ID, B.CATEGORY DESC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
