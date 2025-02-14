@@ -3,10 +3,11 @@ function solution(name) {
 
     // Up/Down 이동 횟수를 저장할 변수
     let count = 0;
-
-    // 1) 우선, 모든 문자를 확인하여 (수직 이동) 합산
+    
+    // 배열로 만들기 
     let arr = name.split('');
 
+    // 1) 모든 문자를 확인하여 수직 이동 더하기
     for (let i = 0; i < arr.length; i++) {
         let alp = arr[i];
         
@@ -20,7 +21,7 @@ function solution(name) {
         }
     }
     
-    // 2) 좌/우 이동 최소화 계산
+    // 2) 좌/우 이동 
     //    - 기본적으로 오른쪽으로 (name.length - 1)만큼 이동한다고 가정
     //    - 연속된 'A'를 만나면 뒤로 돌아가는 게 이득일 수 있으므로 이를 고려
     let horizontalMove = name.length - 1; 
