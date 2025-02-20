@@ -1,12 +1,12 @@
 function solution(s){
-    let stack = [];
+    let stack = 0;
     
-    for (let i = 0; i < s.length; i++) {
-        if (stack.length === 0 && s[i] === ')') return false;
+    for (let i = 0; i < s.length; i++) {    
+        if (s[i] === '(') stack++;
+        if (s[i] === ')') stack--;
         
-        if (s[i] === '(') stack.push(s[i]);
-        if (s[i] === ')') stack.pop();
+        if (stack === -1) return false;
     }
     
-    return stack.length === 0 ? true : false;
+    return stack === 0 ? true : false;
 }
